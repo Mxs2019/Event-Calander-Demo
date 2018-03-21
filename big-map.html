@@ -1,0 +1,143 @@
+<head>
+	<meta charset="utf-8" />
+	<!-- Mobile Styling -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700|Playfair+Display" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<script src="http://cwilliams.office.yext.com:8000/bundle.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css">
+	<script src="./bootstrap/dist/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="all.css">
+	<link rel="stylesheet" href="bootstrap.css">
+	<script src="app.js"></script>
+	<title>Big Map</title>
+
+	<style>
+		.description {
+			height: 90px;
+			overflow: hidden;
+		}
+
+		.pagination .btn {
+			font-size: 25px;
+			margin: 0 2px;
+		}
+
+		.input-daterange {
+			width: auto;
+		}
+
+		.input-daterange input {
+			text-align: left;
+		}
+
+		#start-date {
+			border-radius: 4px;
+		}
+
+		#map {
+			height: 300px;
+		}
+	</style>
+</head>
+
+<body ng-app="app" ng-controller="Controller as ctr" ng-cloak>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Yext</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<div class="navbar-nav">
+				<a class="nav-item nav-link" href="/">Home</a>
+				<a class="nav-item nav-link" ng-repeat="demo in demos" href="{{ demo.url }}">{{ demo.name }}</a>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row">
+			<div class="col text-center">
+				<h1 class="display-3 mt-4 mb-4">Big Map</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="d-flex justify-content-md-between">
+					<div class="d-flex form-inline">
+						<div class="mb-2 mr-sm-2"><strong>Filter Events: </strong></div>
+						<div class="input-daterange">
+							<input type="text" class="form-control mb-2 mr-sm-2 start-date" id="start-date" placeholder="After this Date">
+						</div>
+						<input type="text" class="form-control mb-2 mr-sm-2 name-filter" id="name-filter" placeholder="Event Name">
+						<button type="submit" class="btn btn-primary mb-2 ect-search">Filter</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+
+			<div class="col-md-4">
+				<div id="results">Loading Results...</div>
+				<div class="pagination justify-content-center d-flex ml-2">
+					<div class="btn btn-outline-secondary mb-2 ect-paginate-start"><i class="fa fa-angle-double-left"></i></div>
+					<div class="btn btn-outline-secondary mb-2 ect-paginate-back"><i class="fa fa-angle-left"></i></div>
+					<div class="btn btn-outline-secondary mb-2 ect-paginate-forward"><i class="fa fa-angle-right"></i></div>
+					<div class="btn btn-outline-secondary mb-2 ect-paginate-end"><i class="fa fa-angle-double-right"></i></div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div id="map" class="mt-2 mb-2">Loading Map...</div>
+			</div>
+		</div>
+	</div>
+	<script id="result-template" type="text/template">
+		<div class="event-result border-bottom mb-2 pb-2">
+			<div class="event-title"><a href="">{{MapLabel}}. {{Event.name}}</a></div>
+			<div class="event-date">{{formatDate Event.startDateTime day="numeric" month="long" year="numeric"}}</div>
+		</div>
+	</script>
+	<script>
+		EventCalendar.Initialize({
+			apiKey: '8c34e42a1c38550fbf890c291522cf5c',
+			googleMapsApiKey: 'AIzaSyCICxKAgLkMDbiIysb4fOMfz0fKSt9NRyk',
+			map: '#map',
+			resultsTemplate: '#result-template',
+			resultsElement: '#results',
+			filters: [
+				EventCalendar.Filters.Date({
+					startDateElement: '.start-date',
+					endDateElement: '.end-date'
+				}),
+				EventCalendar.Filters.LiveApiFilter({
+					element: '.select-venue',
+					query: function(value) {
+						return {
+							venueName: {
+								contains: [value]
+							}
+						}
+					}
+				}),
+				EventCalendar.Filters.LiveApiFilter({
+					element: '.name-filter',
+					query: function(value) {
+						return {
+							name: {
+								contains: [value]
+							}
+						}
+					}
+				})
+			]
+		});
+	</script>
+	<script>
+		$(function() {
+			$('.input-daterange').datepicker({});
+		});
+	</script>
+</body>

@@ -13,11 +13,41 @@
 	<title>Home</title>
 
 	<style>
+	body {
+		background-image: url('bg2.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+	}
+
+	a,li {
+		color: white;
+	}
+
+
+	.title {
+		color: white;
+	}
+
+	.value-prop {
+		color: white;
+		margin-right: 10px;
+		padding-top: 10px;  
+	}
+
+	.spacer {
+		height: 150px; 
+	}
+	.spacer2 {
+		height: 50px;
+	}
+
+
 	</style>
 </head>
 
 <body ng-app="app" ng-controller="Controller as ctr" ng-cloak>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar bg-dark">
 		<a class="navbar-brand" href="#">Yext</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -30,11 +60,44 @@
 		</div>
 	</nav>
 	<div class="container mt-4">
+		<div class="row spacer"></div>
 		<div class="row">
 			<div class="col">
-				<h1 class="display-4">Event Calendar Demos</h1>
-				<ul>
-					<li ng-repeat="demo in demos"><a href="{{ demo.url }}">{{ demo.name }}</a></li>
+				<h1 class="display-2 title">Plug and play Calendar for your Website</h1>
+				<div class="row spacer"></div>
+
+				<div class="container">
+					<div class="row">
+						<div class="col value-prop border rounded">
+							<h2> Easy installation</h2>	
+							<p> Cppy an embed code directly to your site</p>
+						</div>
+
+
+					<div class="col border value-prop rounded">
+						<h2> Customizable </h2>	
+						<p> Easily change the look and feel to match your branding. Our developer-friendly Javascript library allows you to extend the calendar however you like.  </p>
+					</div>
+
+					<div class="col border value-prop rounded">
+						<h2> Consistent Data Everywhere </h2>	
+						<p> The events in your calendar are automatically in Sync with Facebook, Eventbrite and all touchpoints you power through Yext.</p>
+					</div>
+
+
+					</div>
+
+				</div>	
+
+
+				<div class="row spacer"></div>
+				<h1 class="display-4 title mt-2 mb-4">Check out example implementations</h1>
+				<div class="row spacer2"></div>
+
+				<ul class="mt-5">
+					<li ng-repeat="demo in demos">
+						<h3> <a href="{{ demo.url }}">{{ demo.name }}</a> </h3>
+					</li>
 				</ul>
 			</div>
 		</div>

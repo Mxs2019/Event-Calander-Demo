@@ -20,7 +20,7 @@
 		background-size: cover;
 	}
 
-	a,li {
+	a {
 		color: white;
 	}
 
@@ -31,75 +31,123 @@
 
 	.value-prop {
 		color: white;
-		margin-right: 10px;
-		padding-top: 10px;  
+		margin-right: 30px;
+		padding-top: 20px; 
+		background-color: rgb(0,0,0,.3); 
+		border-width: thick;
+		min-height: 250px; 
+		border-radius: 15px;
 	}
+
 
 	.spacer {
 		height: 150px; 
 	}
 	.spacer2 {
-		height: 50px;
+		height: 100px;
 	}
+
+	.spacer3 {
+		height: 30px;
+	}
+
+	#examples {
+		color: black;
+	}
+
+	.card-title {
+		color: white;
+		opacity: 1; 
+	}
+
+	.panel2 {
+		background-color: white;
+		min-height: 800px;
+	}
+
+	.list-container {
+		height: 150px; 
+	}
+
 
 
 	</style>
 </head>
 
 <body ng-app="app" ng-controller="Controller as ctr" ng-cloak>
-	<nav class="navbar navbar-expand-lg navbar bg-dark">
+<!-- 	<nav class="navbar navbar-expand-lg bg-dark">
 		<a class="navbar-brand" href="#">Yext</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 		<div class="collapse navbar-collapse" id="navbarNav">
-			<div class="navbar-nav">
+			<div class="navbar-nav"">
 				<a class="nav-item nav-link" href="/">Home</a>
 				<a class="nav-item nav-link" ng-repeat="demo in demos" href="{{ demo.url }}">{{ demo.name }}</a>
 			</div>
 		</div>
-	</nav>
+	</nav> -->
 	<div class="container mt-4">
-		<div class="row spacer"></div>
+		<div class="spacer"></div>
 		<div class="row">
 			<div class="col">
-				<h1 class="display-2 title">Plug and play Calendar for your Website</h1>
-				<div class="row spacer"></div>
 
-				<div class="container">
+				<h1 class="display-1 title">Event Calendar Tags</h1>
+				<h1 class="display-5 title mt-3">A Plug-and-Play Calendar for your Website</h1>
+
+				<div class="row spacer2"></div>
+
+				<div class="container mb-2" id="value props">
 					<div class="row">
-						<div class="col value-prop border rounded">
-							<h2> Easy installation</h2>	
-							<p> Cppy an embed code directly to your site</p>
+						<div class="col value-prop border " >
+								<h2> Easy installation</h2>	
+								<div class="spacer3"></div>
+								<p class="lead"> Copy an embed code directly on your site. Setup is as easy as Google Analytics.</p>								
 						</div>
 
 
-					<div class="col border value-prop rounded">
-						<h2> Customizable </h2>	
-						<p> Easily change the look and feel to match your branding. Our developer-friendly Javascript library allows you to extend the calendar however you like.  </p>
+					<div class="col border value-prop ">
+
+
+						<h2> Customizable Design </h2>	
+						<div class="spacer3"></div>
+						<p class="lead"> Easily change the look and feel to match your branding. Our developer-friendly Javascript library allows you to extend the calendar however you like.  </p>
 					</div>
 
-					<div class="col border value-prop rounded">
+					<div class="col border value-prop ">
 						<h2> Consistent Data Everywhere </h2>	
-						<p> The events in your calendar are automatically in Sync with Facebook, Eventbrite and all touchpoints you power through Yext.</p>
+						<div class="spacer3"></div>
+
+						<p class="lead"> Your calendar are automatically in Sync with Facebook, Eventbrite and all Yext-powered touchpoints. </p>
 					</div>
 
 
 					</div>
-
 				</div>	
 
+				<div class="row spacer mt-5 mb-5"></div>
 
-				<div class="row spacer"></div>
-				<h1 class="display-4 title mt-2 mb-4">Check out example implementations</h1>
-				<div class="row spacer2"></div>
-
-				<ul class="mt-5">
-					<li ng-repeat="demo in demos">
-						<h3> <a href="{{ demo.url }}">{{ demo.name }}</a> </h3>
-					</li>
-				</ul>
 			</div>
 		</div>
+	</div>
+
+	<div class="container-lg panel2">
+		<div class="row w-75 mx-auto">
+			<div class="spacer3 mb-5"> </div>
+			<h1 class="display-4 mt-2">You have full control over how your calendar looks. Here are some examples:   </h1>		
+		
+				
+			<div class="d-flex flex-column align-items-center my-5 h-25">
+					
+					<ul class="h-25">
+						<li ng-repeat="demo in demos">
+							<p class="lead"> <a id = "examples" href="{{ demo.url }}">{{ demo.name }}</a>  </p>								
+								
+						</li>
+					</ul>
+
+			</div>
+
+		</div>
+
+
+		
 	</div>
 </body>

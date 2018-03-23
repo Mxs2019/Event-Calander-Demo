@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="all.css">
 	<link rel="stylesheet" href="bootstrap.css">
 	<script src="app.js"></script>
-	<title>Big Map</title>
+	<title>Capital One Cafe Events</title>
 
 	<style>
 		.description {
@@ -39,7 +39,7 @@
 		}
 
 		#map {
-			height: 100%;
+			height: 300px;
 		}
 
 		.background-image {
@@ -48,39 +48,34 @@
 			background-size: cover;
 		}
 
-		.event-body {
-			min-height: 100px;
-		}
-
-		a {
-			color: black;
-
-		}
-
-		.event-date {
-			color: gray;
-		}
-
-		.map-number {
+		.nav-link {
 			color: white;
 		}
 
-		.main-view {
-			width: 90%;
+		.header {
+			background-image: url('cap1bg.jpg');
+			color: white;
+			min-height: 200px; 
 		}
 
-	/*	.event-tile {
-			min-height: 140px; 
-		}*/
+		.logo-header {
+			border-bottom: 2px solid #303e4e;
+			margin-bottom: 20px;
+			background-color: #007bff; 
+		}
 
-
-
+		.logo-container {
+			max-height: 60px;
+			margin-left: 20px;
+		}
 
 	</style>
 </head>
 
 <body ng-app="app" ng-controller="Controller as ctr" ng-cloak>
-	<!-- Nav -->
+	
+	<!-- 	Navigation -->
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Yext</a>
 		<div class="collapse navbar-collapse" id="navbarNav">
@@ -91,94 +86,97 @@
 		</div>
 	</nav>
 
-	<div class="container">
+	<div class="container-fluid">
+		<div class=" logo-header  row">
+			<div class="col my-4">
+				<img class = "logo-container" src="cap1-white.png">
+		</div>
+	</div>
 
-		<!-- Header -->
+	</div>
+
+
+
+
+	<div class="container">
+		
+		<!-- Header --> 
+
+
 		<div class="row">
-			<div class="col text-center">
-				<h1 class="display-3 mt-4 mb-4">Big Map</h1>
+			<div class="col d-flex align-items-center header mb-4">
+				<h1 class="display-4 text-center mt-4 mb-4 mx-auto">Upcoming Cafe Events</h1>
 			</div>
 		</div>
 
-		<!-- Filters -->
-		<div class="row mt-4">
-			<div class="col">
+		<!-- Filters --> 
+		<div class="row mb-4 mt-4">
+			<div class="col-md">
 				<div class="d-flex justify-content-md-between">
 					<div class="d-flex form-inline">
-						<div class="mb-2 mr-sm-2"><strong>Filters </strong></div>
+						<div class="mb-4 mr-sm-3"><strong>Filters </strong></div>
 						<div class="input-daterange">
 							<input type="text" class="form-control mb-2 mr-sm-2 start-date" id="start-date" placeholder="After this Date">
 						</div>
 						<input type="text" class="form-control mb-2 mr-sm-2 name-filter" id="name-filter" placeholder="Event Name">
-						<button type="submit" class="btn btn-primary mb-2 ect-search">Filter</button>
+						
 					</div>
 				</div>
 			</div>
-			<!-- Pagination -->
 			<div class="col">
-				<div class="pagination justify-content-end d-flex ml-2">
-					<div class="btn btn-outline-secondary mb-2 ect-paginate-start"><i class="fa fa-angle-double-left"></i></div>
-					<div class="btn btn-outline-secondary mb-2 ect-paginate-back"><i class="fa fa-angle-left"></i></div>
-					<div class="btn btn-outline-secondary mb-2 ect-paginate-forward"><i class="fa fa-angle-right"></i></div>
-					<div class="btn btn-outline-secondary mb-2 ect-paginate-end"><i class="fa fa-angle-double-right"></i></div>
+				<div class="d-flex justify-content-end">
+					<button type="submit" class="btn btn-primary mb-2 ect-search ">Filter</button>	
 				</div>
-			</div>
-		</div>
-
-	</div>
-
-	<div class="container-lg main-view mx-auto">
-		<div class="row mt-4">
-			<div class="col-4 h-50">
-				<div id="results">Loading Results...</div>					
-			</div>
-
-			<div class="col map-container">
-				<div id="map" class="mt-2 mb-2">Loading Map...</div>
-			</div>
-
-		</div>
-	</div>
-
-
-	
-
-	<script id="result-template" type="text/template">
-		<div class="container border mb-3" style=" border-radius: 10px;" >
-			<div class="row event-body">
-
-					<div class=" col px-0 background-image" style="background-image: url('{{Event.photos.0.url}}'); border-top-left-radius: 10px; border-bottom-left-radius: 10px; height: 150px;">
-						<div style="background-color: rgba(0,0,0,.3); border-top-left-radius: 10px; border-bottom-left-radius: 10px; height: 100%;">
-							<div class="d-flex justify-content-center map-number pt-5">
-								<h1> {{MapLabel}} </h1>						
-							</div>
-
-						</div>	
-					</div>
 				
+			</div>
+		</div>
 
 
-				<div class="col pt-2 px-4 ">
-					<p class="event-title"><strong> <a href=""> {{Event.name}}</a></strong></p>
-					<p class="event-date">{{formatDate Event.startDateTime day="numeric" month="long" year="numeric"}}</p>					
+		<div class="row" id="results">
+			Loading...
+		</div>
 
-				</div>
+		<div class="row">
+			<div class="col">
+					<div class="pagination justify-content-center d-flex ml-2">
+						<div class="btn btn-outline-secondary mb-2 ect-paginate-start"><i class="fa fa-angle-double-left"></i></div>
+						<div class="btn btn-outline-secondary mb-2 ect-paginate-back"><i class="fa fa-angle-left"></i></div>
+						<div class="btn btn-outline-secondary mb-2 ect-paginate-forward"><i class="fa fa-angle-right"></i></div>
+						<div class="btn btn-outline-secondary mb-2 ect-paginate-end"><i class="fa fa-angle-double-right"></i></div>
+					</div>
 
 			</div>
 
 		</div>
 
+	</div>
+	<script id="result-template" type="text/template">
+
+
+		<div class="container mb-4">
+			<div class="row border" style="border-radius: 10px;">
+				<div class="col px-0 background-image" style="background-image: url('{{Event.photos.0.url}}'); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+				</div>
+
+				<div class="col-8 px-3 pt-3">
+					<h4 class="card-text">{{Event.name}}</h4>
+					<p class="card-text text-secondary"><strong>{{formatDate Event.startDateTime day="numeric" month="long" year="numeric"}}</strong></p>
+					<p class="card-text description">{{Event.description}}</p>
+
+					<div class="event-tickets pb-3">
+						<a class="btn btn-outline-primary" role="button" href="{{Event.url}}">View Website</a> {{#if Event.ticketUrl}}
+						<a class="btn btn-outline-primary" role="button" href="{{Event.ticketUrl}}">Get Tickets</a> {{/if}}
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</script>
-
 	<script>
 		EventCalendar.Initialize({
 			apiKey: '8c34e42a1c38550fbf890c291522cf5c',
-			googleMapsApiKey: 'AIzaSyCICxKAgLkMDbiIysb4fOMfz0fKSt9NRyk',
-			map: '#map',
 			resultsTemplate: '#result-template',
 			resultsElement: '#results',
-			resultsPerPage:6,
 			filters: [
 				EventCalendar.Filters.Date({
 					startDateElement: '.start-date',

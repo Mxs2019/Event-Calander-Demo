@@ -1,0 +1,264 @@
+
+<head>
+	<meta charset="utf-8" />
+	<!-- Mobile Styling -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<script src="http://assets.mktgtags.com/events/events.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css">
+	<script src="./bootstrap/dist/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="bootstrap.css">
+	<link rel="stylesheet" href="all.css">
+	<script src="app.js"></script>
+	<title>corepower Events</title>
+
+	<style>
+		body {
+			font-family: 'Questrial', sans-serif;
+			letter-spacing: 1px;
+		}
+
+
+
+
+		.background {
+			background-color: black;
+			background-image: url(bg.jpg);
+			background-position: center;
+			background-size: cover;
+			color: white;
+			margin-right: -15px;
+			margin-left: -15px;
+
+		}
+
+		.background h1 {
+			margin: 120px 0px;
+			font-size: 60px;
+		}
+
+		.overlay {
+			background-color: #0000009c;
+		}
+
+		.logo {
+			height: 53px;
+			max-width: 100%;
+			position: absolute;
+			left: 15px;
+			top: 15px;
+		}
+
+
+		.flex-column-left {
+			display: flex;
+			flex-direction: column;
+
+		}
+
+		.flex-column-centered {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+		}
+
+		.event-row {
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+
+		.calendar-item {
+			padding: 0 15px 0px 0px;
+		}
+
+		.date-month {
+			font-weight: 300;
+			font-size: 16px;
+		}
+
+		.date-day {
+			font-size: 40px;
+			font-weight: 500;
+			width: 50px;
+			text-align: center;
+		}
+
+		.event-name {
+			font-weight: 700;
+			font-size: 18px;
+		}
+
+		.event-name-description {}
+
+		#map {
+			height: 0px;
+			display: flex;
+			flex-wrap: wrap;
+			margin-right: -15px;
+			margin-left: -15px;
+		}
+
+		.details-button {
+			margin-top: 20px;
+		}
+
+		@media (min-width: 768px) {
+			#map {
+				height: 300px;
+			}
+			.title {
+				padding: 60px 80px;
+				font-size: 48px;
+			}
+
+			.calendar-item {
+				padding: 0 30px;
+			}
+
+			.details-button {
+				margin-top: 0px;
+			}
+		}
+	</style>
+</head>
+
+<body ng-app="app" ng-controller="Controller as ctr" ng-cloak>
+
+	<div class="container-fluid">
+		<div class="background">
+			<div class="row overlay">
+				<img class="logo" src="logo.png" alt="">
+				<div class="col flex-column-centered">
+					<h1>upcoming events</h1>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="row row-inset">
+			<div class="col text-centered text-primary">
+				<h1 class="display-4">Upcoming Events</h1>
+			</div>
+		</div> -->
+	</div>
+	<div class="container">
+
+
+		<div class="row pb-2 mb-2">
+			<div class="col-md-12">
+				<div class="mt-4">
+					<h3>Find upcoming CorePower Yoga Events</h3>
+				</div>
+			</div>
+		</div>
+		<div id="map" class=""></div>
+
+		
+		<div class="row pb-2 mb-2">
+			<div class="col-md-12">
+				<div class="d-flex justify-content-md-between">
+					<div class="d-flex form-inline mt-3 ">
+						<div class="mb-2 mr-sm-2 "><strong>Filter Events: </strong></div>
+
+						<!-- <input type="text" class="form-control mb-2 mr-sm-2 location-filter" id="location-filter" placeholder="Event Location"> -->
+						<!-- <input type="text" class="location-filter"> -->
+						<select name="" id="" class="form-control mb-2 mr-sm-2 city-filter">
+							<option value="">All Cities</option>
+							<option value="Atlanta">Atlanta, Georgia</option>
+							<option value="Austin">Austin, Texas</option>
+							<option value="Cambridge">Cambridge, Massachusetts</option>
+							<option value="Columbus">Columbus, Ohio</option>
+							<option value="Dallas">Dallas, Texas</option>
+							<option value="Denver">Denver, Colorado</option>
+							<option value="Fort Collins">Fort Collins, Colorado</option>
+							<option value="Medford">Medford, Massachusetts</option>
+							<option value="Sandy Springs">Sandy Springs, Georgia</option>
+							<option value="Tempe">Tempe, Arizona</option>
+						</select>
+
+						<input type="text" class="form-control mb-2 mr-sm-2 start-date" data-provide="datepicker" id="start-date" placeholder="Events after this date">
+						<input type="text" class="form-control mb-2 mr-sm-2 name-filter" id="name-filter" placeholder="Event Name">
+						<button type="submit" class="btn btn-primary mb-2 ect-search">Filter</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="results">
+			<div class="row pb-4 pt-4">
+				Loading...
+			</div>
+		</div>
+	</div>
+	<script id="result-template" type="text/template">
+		<div class="row">
+			<div class="col-sm-12 event-row d-flex border-bottom border-primary">
+				<div class="flex-column-centered calendar-item">
+					<div class="text-primary date-month">{{formatDate Event.startDateTime month="short"}}</div>
+					<div class="date-day">{{formatDate Event.startDateTime day="numeric"}}</div>
+				</div>
+				<div class="flex-column-left">
+					<div class="event-name">{{Event.name}}</div>
+					<div class="event-time text-secondary">{{formatDate Event.startDateTime hour="numeric"}} - {{formatDate Event.endDateTime hour="numeric"}}</div>
+					<div class="event-description mb-2">{{ Event.description }}</div>
+					<div class="mt-2 "><i class="fa fa-map-marker mr-2 text-primary"></i><strong class="text-primary">{{Event.venueName}}</strong> - {{Event.address}} - {{Event.city}}</div>
+				</div>
+			</div>
+			<!-- <div class="col-sm-3 event-row border-bottom border-primary">
+				{{#if Event.ticketUrl}} <a href="{{Event.ticketUrl}}" target="_blank" class="btn btn-primary btn-span btn-block details-button">Buy Tickets</a> {{/if}} {{#if Event.websiteUrl}} <a href="{{Event.websiteUrl}}" target="_blank" class="btn btn-outline-primary btn-span btn-block details-button">View Details</a>{{/if}}
+			</div> -->
+		</div>
+
+	</script>
+	<script>
+		EventCalendar.Initialize({
+			apiKey: '3662421a932a9bf10491994d9eb27044',
+			googleMapsApiKey: 'AIzaSyCICxKAgLkMDbiIysb4fOMfz0fKSt9NRyk',
+			map: '#map',
+			resultsTemplate: '#result-template',
+			resultsElement: '#results',
+			resultsPerPage: 50,
+			filters: [
+				EventCalendar.Filters.Date({
+					startDateElement: '.start-date',
+					endDateElement: '.end-date'
+				}),
+				EventCalendar.Filters.LiveApiFilter({
+					element: '.select-venue',
+					query: function(value) {
+						return {
+							venueName: {
+								contains: [value]
+							}
+						}
+					}
+				}),
+				EventCalendar.Filters.Location({
+					element: '.location-filter'
+				}),
+				EventCalendar.Filters.LiveApiFilter({
+					element: '.city-filter',
+					query: function(value) {
+						return {
+							city: {
+								contains: [value]
+							}
+						}
+					}
+				}),
+				EventCalendar.Filters.LiveApiFilter({
+					element: '.name-filter',
+					query: function(value) {
+						return {
+							name: {
+								contains: [value]
+							}
+						}
+					}
+				})
+			]
+		});
+	</script>
+</body>

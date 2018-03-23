@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="all.css">
 	<link rel="stylesheet" href="bootstrap.css">
 	<script src="app.js"></script>
-	<title>Big Map</title>
+	<title>Tile View </title>
 
 	<style>
 		.description {
@@ -39,48 +39,22 @@
 		}
 
 		#map {
-			height: 100%;
+			height: 300px;
 		}
 
-		.background-image {
-			background-repeat: no-repeat;
-			background-position: center;
-			background-size: cover;
+		.event-tile {
+			min-height: 560px; 
+			border-radius: 10px; 
 		}
 
-		.event-body {
-			min-height: 100px;
-		}
-
-		a {
-			color: black;
-
-		}
-
-		.event-date {
-			color: gray;
-		}
-
-		.map-number {
+		.nav-link {
 			color: white;
 		}
-
-		.main-view {
-			width: 90%;
-		}
-
-	/*	.event-tile {
-			min-height: 140px; 
-		}*/
-
-
-
-
 	</style>
 </head>
 
 <body ng-app="app" ng-controller="Controller as ctr" ng-cloak>
-	<!-- Nav -->
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Yext</a>
 		<div class="collapse navbar-collapse" id="navbarNav">
@@ -91,86 +65,73 @@
 		</div>
 	</nav>
 
+
 	<div class="container">
 
 		<!-- Header -->
 		<div class="row">
-			<div class="col text-center">
-				<h1 class="display-3 mt-4 mb-4">Big Map</h1>
+			<div class="col text-center mb-4">
+				<h1 class="display-3 mt-4 mb-4">Tile View</h1>
 			</div>
 		</div>
 
 		<!-- Filters -->
-		<div class="row mt-4">
-			<div class="col">
+		<div class="row mb-4 mt-4">
+			<div class="col-md-12">
 				<div class="d-flex justify-content-md-between">
 					<div class="d-flex form-inline">
-						<div class="mb-2 mr-sm-2"><strong>Filters </strong></div>
+						<div class="mb-2 mr-sm-2"><strong>Filter Events: </strong></div>
 						<div class="input-daterange">
 							<input type="text" class="form-control mb-2 mr-sm-2 start-date" id="start-date" placeholder="After this Date">
 						</div>
 						<input type="text" class="form-control mb-2 mr-sm-2 name-filter" id="name-filter" placeholder="Event Name">
 						<button type="submit" class="btn btn-primary mb-2 ect-search">Filter</button>
 					</div>
-				</div>
-			</div>
-			<!-- Pagination -->
-			<div class="col">
-				<div class="pagination justify-content-end d-flex ml-2">
-					<div class="btn btn-outline-secondary mb-2 ect-paginate-start"><i class="fa fa-angle-double-left"></i></div>
-					<div class="btn btn-outline-secondary mb-2 ect-paginate-back"><i class="fa fa-angle-left"></i></div>
-					<div class="btn btn-outline-secondary mb-2 ect-paginate-forward"><i class="fa fa-angle-right"></i></div>
-					<div class="btn btn-outline-secondary mb-2 ect-paginate-end"><i class="fa fa-angle-double-right"></i></div>
+
+
+
+
 				</div>
 			</div>
 		</div>
 
-	</div>
-
-	<div class="container-lg main-view mx-auto">
-		<div class="row mt-4">
-			<div class="col-4 h-50">
-				<div id="results">Loading Results...</div>					
-			</div>
-
-			<div class="col map-container">
-				<div id="map" class="mt-2 mb-2">Loading Map...</div>
-			</div>
-
+		<div class="row" id="results">
+			Loading...
 		</div>
+
+
+
+		<!-- Pagination -->
+		<div class="row">
+			<div class="pagination justify-content-center d-flex ml-2">
+				<div class="btn btn-outline-secondary mb-2 ect-paginate-start"><i class="fa fa-angle-double-left"></i></div>
+				<div class="btn btn-outline-secondary mb-2 ect-paginate-back"><i class="fa fa-angle-left"></i></div>
+				<div class="btn btn-outline-secondary mb-2 ect-paginate-forward"><i class="fa fa-angle-right"></i></div>
+				<div class="btn btn-outline-secondary mb-2 ect-paginate-end"><i class="fa fa-angle-double-right"></i></div>
+			</div>
+		</div>
+
 	</div>
-
-
-	
 
 	<script id="result-template" type="text/template">
-		<div class="container border mb-3" style=" border-radius: 10px;" >
-			<div class="row event-body">
-
-					<div class=" col px-0 background-image" style="background-image: url('{{Event.photos.0.url}}'); border-top-left-radius: 10px; border-bottom-left-radius: 10px; height: 150px;">
-						<div style="background-color: rgba(0,0,0,.3); border-top-left-radius: 10px; border-bottom-left-radius: 10px; height: 100%;">
-							<div class="d-flex justify-content-center map-number pt-5">
-								<h1> {{MapLabel}} </h1>						
-							</div>
-
-						</div>	
-					</div>
+		<div class="col-md-4">
+			<div class="card mb-4 box-shadow event-tile">
 				
+				<img src="{{Event.photos.0.url}}" alt="" class="card-img-top" style="height: 225px; width: 100%; display: block; border-top-left-radius: 10px; border-top-right-radius: 10px;"> 
 
+				<div class="card-body">
+					<h4 class="card-text"><a href="">{{MapLabel}}. {{Event.name}}</a></h4>
+					<p class="card-text"><strong>{{formatDate Event.startDateTime day="numeric" month="long" year="numeric"}}</strong></p>
+					<p class="card-text description">{{Event.description}}</p>
 
-				<div class="col pt-2 px-4 ">
-					<p class="event-title"><strong> <a href=""> {{Event.name}}</a></strong></p>
-					<p class="event-date">{{formatDate Event.startDateTime day="numeric" month="long" year="numeric"}}</p>					
-
+					<div class="event-tickets">
+						<a class="btn btn-outline-secondary" role="button" href="{{Event.url}}">View Website</a> {{#if Event.ticketUrl}}
+						<a class="btn btn-outline-secondary" role="button" href="{{Event.ticketUrl}}">Get Tickets</a> {{/if}}
+					</div>
 				</div>
-
 			</div>
-
 		</div>
-
-
 	</script>
-
 	<script>
 		EventCalendar.Initialize({
 			apiKey: '8c34e42a1c38550fbf890c291522cf5c',
@@ -178,7 +139,6 @@
 			map: '#map',
 			resultsTemplate: '#result-template',
 			resultsElement: '#results',
-			resultsPerPage:6,
 			filters: [
 				EventCalendar.Filters.Date({
 					startDateElement: '.start-date',

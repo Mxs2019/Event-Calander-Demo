@@ -13,9 +13,14 @@
 	<link rel="stylesheet" href="all.css">
 	<link rel="stylesheet" href="bootstrap.css">
 	<script src="app.js"></script>
-	<title>Big Map</title>
+	<title>Core Power Example</title>
 
 	<style>
+
+		body {
+			font-family: 'Questrial', sans-serif;
+			letter-spacing: 1px;
+		}
 		.description {
 			height: 90px;
 			overflow: hidden;
@@ -50,6 +55,8 @@
 
 		.event-body {
 			min-height: 100px;
+			border-top-left-radius: 10px; 
+			border-bottom-left-radius: 10px;
 		}
 
 		a {
@@ -69,14 +76,46 @@
 			width: 90%;
 		}
 
-	/*	.event-tile {
-			min-height: 140px; 
-		}*/
+		.background {
+			background-color: black;
+			background-image: url(corepower_bg.jpg);
+			background-position: center;
+			background-size: cover;
+			color: white;
+			margin-right: -15px;
+			margin-left: -15px;
+
+		}
+
+		.background h1 {
+			margin: 120px 0px;
+			font-size: 60px;
+		}
+
+		.overlay {
+			background-color: #0000009c;
+		}
+
+		.flex-column-centered {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+		}
+
+		.logo {
+			height: 53px;
+			max-width: 100%;
+			position: relative;
+			left: 50px;
+			top: 15px;
+		}
 
 
 
 
 	</style>
+
 </head>
 
 <body ng-app="app" ng-controller="Controller as ctr" ng-cloak>
@@ -91,31 +130,50 @@
 		</div>
 	</nav>
 
-	<div class="container">
-
-		<!-- Header -->
-		<div class="row">
-			<div class="col text-center">
-				<h1 class="display-3 mt-4 mb-4">Big Map</h1>
+	<div class="background">
+			<div class="row overlay">
+				<img class="logo" src="cp_logo.png" alt="">
+				<div class="col flex-column-centered">
+					<h1>upcoming events</h1>
+				</div>
 			</div>
 		</div>
 
+	<div class="container">
+
+
 		<!-- Filters -->
-		<div class="row mt-4">
+
+		<div class="row pb-2 mb-2">
 			<div class="col">
 				<div class="d-flex justify-content-md-between">
-					<div class="d-flex form-inline">
-						<div class="mb-2 mr-sm-2"><strong>Filters </strong></div>
-						<div class="input-daterange">
-							<input type="text" class="form-control mb-2 mr-sm-2 start-date" id="start-date" placeholder="After this Date">
-						</div>
+					<div class="d-flex form-inline mt-3 ">
+						<div class="mb-2 mr-sm-2 "><strong>Filter Events: </strong></div>
+
+						<!-- <input type="text" class="form-control mb-2 mr-sm-2 location-filter" id="location-filter" placeholder="Event Location"> -->
+						<!-- <input type="text" class="location-filter"> -->
+						<select name="" id="" class="form-control mb-2 mr-sm-2 city-filter">
+							<option value="">All Cities</option>
+							<option value="Atlanta">Atlanta, Georgia</option>
+							<option value="Austin">Austin, Texas</option>
+							<option value="Cambridge">Cambridge, Massachusetts</option>
+							<option value="Columbus">Columbus, Ohio</option>
+							<option value="Dallas">Dallas, Texas</option>
+							<option value="Denver">Denver, Colorado</option>
+							<option value="Fort Collins">Fort Collins, Colorado</option>
+							<option value="Medford">Medford, Massachusetts</option>
+							<option value="Sandy Springs">Sandy Springs, Georgia</option>
+							<option value="Tempe">Tempe, Arizona</option>
+						</select>
+
+						<input type="text" class="form-control mb-2 mr-sm-2 start-date" data-provide="datepicker" id="start-date" placeholder="Events after this date">
 						<input type="text" class="form-control mb-2 mr-sm-2 name-filter" id="name-filter" placeholder="Event Name">
 						<button type="submit" class="btn btn-primary mb-2 ect-search">Filter</button>
 					</div>
 				</div>
 			</div>
-			<!-- Pagination -->
-			<div class="col">
+
+			<div class="col-2 mt-3">
 				<div class="pagination justify-content-end d-flex ml-2">
 					<div class="btn btn-outline-secondary mb-2 ect-paginate-start"><i class="fa fa-angle-double-left"></i></div>
 					<div class="btn btn-outline-secondary mb-2 ect-paginate-back"><i class="fa fa-angle-left"></i></div>
@@ -124,6 +182,12 @@
 				</div>
 			</div>
 		</div>
+
+
+
+			<!-- Pagination -->
+
+		
 
 	</div>
 
@@ -144,23 +208,28 @@
 	
 
 	<script id="result-template" type="text/template">
+
+
+
+
 		<div class="container border mb-3" style=" border-radius: 10px;" >
-			<div class="row event-body">
+			<div class="overlay">
+				<div class="row event-body">
+					<div class=" col px-0 background-image" style="background-image: url('{{Event.photos.0.url}}');">
+						<div class="d-flex justify-content-center map-number pt-5">
+							<h1> {{MapLabel}} </h1>						
+						</div>
 
-					<div class=" col px-0 background-image" style="background-image: url('{{Event.photos.0.url}}'); border-top-left-radius: 10px; border-bottom-left-radius: 10px; height: 150px;">
-						<div style="background-color: rgba(0,0,0,.3); border-top-left-radius: 10px; border-bottom-left-radius: 10px; height: 100%;">
-							<div class="d-flex justify-content-center map-number pt-5">
-								<h1> {{MapLabel}} </h1>						
-							</div>
-
-						</div>	
 					</div>
-				
 
+					<div class="col pt-2 px-4 " style="background-color: white">
+						<p class="event-title"><strong> <a href=""> {{Event.name}}</a></strong></p>
+						<p class="event-date">{{formatDate Event.startDateTime day="numeric" month="long" year="numeric"}}</p>	
 
-				<div class="col pt-2 px-4 ">
-					<p class="event-title"><strong> <a href=""> {{Event.name}}</a></strong></p>
-					<p class="event-date">{{formatDate Event.startDateTime day="numeric" month="long" year="numeric"}}</p>					
+						<div class="mt-2 "><i class="fa fa-map-marker mr-2 text-primary"></i><strong class="text-primary">{{Event.venueName}}</strong> - {{Event.address}} - {{Event.city}}</div>
+					
+
+					</div>
 
 				</div>
 
@@ -173,7 +242,7 @@
 
 	<script>
 		EventCalendar.Initialize({
-			apiKey: '8c34e42a1c38550fbf890c291522cf5c',
+			apiKey: '3662421a932a9bf10491994d9eb27044',
 			googleMapsApiKey: 'AIzaSyCICxKAgLkMDbiIysb4fOMfz0fKSt9NRyk',
 			map: '#map',
 			resultsTemplate: '#result-template',

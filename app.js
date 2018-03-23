@@ -26,6 +26,10 @@ app.controller('Controller', ['$scope', '$window', '$location', '$anchorScroll',
       name: "List with Images 2",
       url: "list-view-images.html"
     },
+    {
+      name: "CraftWork Branded",
+      url: "http://example-ect-calendar.surge.sh/craftworks/"
+    },
 
     {
       name: "Capital One Example", 

@@ -39,7 +39,7 @@ app.controller('Controller', ['$scope', '$window', '$location', '$anchorScroll',
 
     }, 
     {
-      name: "Core Power - Big Map", 
+      name: "Corepower Example", 
       url: "CorePower_example.html"
     }
 
